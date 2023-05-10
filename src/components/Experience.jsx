@@ -559,62 +559,65 @@ Thank you for an amazing year!`,
     }
   }, [state.play]);
 
-  return (
-    <>
-      <directionalLight position={[0, 3, 1]} intensity={0.1} />
-      <group ref={cameraGroup}>
-        <Background backgroundColors={backgroundColors} />
-        <Speed />
-        <group ref={cameraRail}>
-          <PerspectiveCamera
-            // ref={camera}
-            position={[0, 0, 5]}
-            fov={30}
-            makeDefault
-          />
-        </group>
-        <group ref={airplane}>
-          <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
-            <Airplane
-              rotation-y={Math.PI / 2}
-              scale={[0.2, 0.2, 0.2]}
-              position-y={0.1}
+  return useMemo(
+    () => (
+      <>
+        <directionalLight position={[0, 3, 1]} intensity={0.1} />
+        <group ref={cameraGroup}>
+          <Background backgroundColors={backgroundColors} />
+          <Speed />
+          <group ref={cameraRail}>
+            <PerspectiveCamera
+              // ref={camera}
+              position={[0, 0, 5]}
+              fov={30}
+              makeDefault
             />
-          </Float>
+          </group>
+          <group ref={airplane}>
+            <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
+              <Airplane
+                rotation-y={Math.PI / 2}
+                scale={[0.2, 0.2, 0.2]}
+                position-y={0.1}
+              />
+            </Float>
+          </group>
         </group>
-      </group>
 
-      {/* TEXT */}
-      {textSections.map((textSections, index) => (
-        <TextSection {...textSections} key={index} />
-      ))}
+        {/* TEXT */}
+        {textSections.map((textSections, index) => (
+          <TextSection {...textSections} key={index} />
+        ))}
 
-      {/* LINE */}
-      <group position-y={-2}>
-        <mesh>
-          <extrudeGeometry
-            args={[
-              shape,
-              {
-                steps: NUM_POINTS_LINE,
-                bevelEnabled: false,
-                extrudePath: curve,
-              },
-            ]}
-          />
-          <meshStandardMaterial
-            color="white"
-            opacity={1}
-            transparent
-            envMapIntensity={2}
-          />
-        </mesh>
-      </group>
+        {/* LINE */}
+        <group position-y={-2}>
+          <mesh>
+            <extrudeGeometry
+              args={[
+                shape,
+                {
+                  steps: NUM_POINTS_LINE,
+                  bevelEnabled: false,
+                  extrudePath: curve,
+                },
+              ]}
+            />
+            <meshStandardMaterial
+              color="white"
+              opacity={1}
+              transparent
+              envMapIntensity={2}
+            />
+          </mesh>
+        </group>
 
-      {/* CLOUDS */}
-      {clouds.map((cloud, index) => (
-        <Cloud {...cloud} key={index} />
-      ))}
-    </>
+        {/* CLOUDS */}
+        {clouds.map((cloud, index) => (
+          <Cloud {...cloud} key={index} />
+        ))}
+      </>
+    ),
+    []
   );
 };
