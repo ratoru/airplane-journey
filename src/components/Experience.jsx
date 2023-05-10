@@ -50,8 +50,8 @@ export const Experience = () => {
           curvePoints[1].y,
           curvePoints[1].z
         ),
-        title: "Hello!",
-        subtitle: "Ready for a journey?",
+        title: "Hallo!",
+        subtitle: `Let me take you on a journey!`,
       },
       {
         cameraRailDist: 1.5,
@@ -61,7 +61,7 @@ export const Experience = () => {
           curvePoints[2].z
         ),
         title: "Time",
-        subtitle: `It's been a long time.
+        subtitle: `Time flew by.
 Thank you for an amazing year!`,
       },
       {
@@ -82,7 +82,27 @@ Thank you for an amazing year!`,
           curvePoints[4].z - 12
         ),
         title: "On Cloud Nine",
-        subtitle: `How you make me feel every day, or just the # of this cloud.`,
+        subtitle: `How you make me feel every day (or maybe it's just the # of this cloud).`,
+      },
+      {
+        cameraRailDist: -1.5,
+        position: new THREE.Vector3(
+          curvePoints[5].x - 3.5,
+          curvePoints[5].y,
+          curvePoints[5].z
+        ),
+        title: "Cold",
+        subtitle: `"It's cold up here!" is what you'd say.`,
+      },
+      {
+        cameraRailDist: 1.5,
+        position: new THREE.Vector3(
+          curvePoints[6].x + 3,
+          curvePoints[6].y,
+          curvePoints[6].z
+        ),
+        title: "Soundtrack",
+        subtitle: `Thank you for being an endless provider of sound effects.`,
       },
     ];
   });
@@ -98,7 +118,7 @@ Thank you for an amazing year!`,
       },
       {
         scale: new THREE.Vector3(4, 4, 4),
-        position: new THREE.Vector3(-18, 0.2, -68),
+        position: new THREE.Vector3(-18, 2, -68),
         rotation: new THREE.Euler(-Math.PI / 5, Math.PI / 6, 0),
       },
       {
@@ -237,6 +257,77 @@ Thank you for an amazing year!`,
           curvePoints[4].z - 62
         ),
         rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      // FIFTH POINT
+      {
+        scale: new THREE.Vector3(2, 2, 2),
+        position: new THREE.Vector3(
+          curvePoints[5].x + 3,
+          curvePoints[5].y - 10,
+          curvePoints[5].z + 2
+        ),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[5].x - 24,
+          curvePoints[5].y - 3,
+          curvePoints[5].z - 42
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 5),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[5].x - 4,
+          curvePoints[5].y + 9,
+          curvePoints[5].z - 62
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 2),
+      },
+      // SIXTH POINT
+      {
+        scale: new THREE.Vector3(4, 4, 4),
+        position: new THREE.Vector3(
+          curvePoints[6].x + 10,
+          curvePoints[6].y - 4,
+          curvePoints[6].z + 64
+        ),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[6].x - 20,
+          curvePoints[6].y + 4,
+          curvePoints[6].z + 28
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 7, 0),
+      },
+      {
+        rotation: new THREE.Euler(0, Math.PI / 7, Math.PI / 5),
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[6].x - 13,
+          curvePoints[6].y + 4,
+          curvePoints[6].z - 62
+        ),
+      },
+      {
+        rotation: new THREE.Euler(Math.PI / 2, Math.PI / 2, Math.PI / 3),
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[6].x + 54,
+          curvePoints[6].y + 2,
+          curvePoints[6].z - 82
+        ),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[6].x + 8,
+          curvePoints[6].y - 14,
+          curvePoints[6].z - 22
+        ),
       },
       // FINAL
       {
