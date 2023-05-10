@@ -3,11 +3,12 @@ import { gsap } from "gsap";
 import { Airplane } from "./Airplane";
 import { Cloud } from "./Cloud";
 import { Background } from "./Background";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { TextSection } from "./TextSection";
 import { Speed } from "./Speed";
+import { usePlay } from "../contexts/Play";
 
 const NUM_POINTS_LINE = 1000;
 const CURVE_DISTANCE = 250;
@@ -350,15 +351,6 @@ Thank you for an amazing year!`,
         ),
         rotation: new THREE.Euler(Math.PI / 4, Math.PI / 6, 0),
       },
-      {
-        scale: new THREE.Vector3(4, 4, 4),
-        position: new THREE.Vector3(
-          curvePoints[7].x,
-          curvePoints[7].y,
-          curvePoints[7].z
-        ),
-        rotation: new THREE.Euler(0, 0, 0),
-      },
     ],
     []
   );
@@ -370,7 +362,12 @@ Thank you for an amazing year!`,
 
   const scroll = useScroll();
   const lastScroll = useRef(0);
+
   const tl = useRef();
+  const planeInTl = useRef();
+  const planeOutTl = useRef();
+
+  const state = usePlay();
 
   useFrame((_state, delta) => {
     // Adjust camera settings based on device
@@ -384,6 +381,14 @@ Thank you for an amazing year!`,
     //   camera.current.position.z = 2;
     // }
     // console.log(camera.current);
+
+    if (lastScroll.current <= 0 && scroll.offset > 0) {
+      state.setHasScroll();
+    }
+
+    if (state.end) {
+      return;
+    }
 
     const scrollOffset = Math.max(0, scroll.offset);
 
@@ -481,6 +486,15 @@ Thank you for an amazing year!`,
       )
     );
     airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
+
+    // Play flying out animation if at the end.
+    if (
+      cameraGroup.current.position.z <
+      curvePoints[curvePoints.length - 1].z + 100
+    ) {
+      state.setEnd();
+      planeOutTl.current.play();
+    }
   });
 
   const backgroundColors = useRef({
@@ -489,8 +503,8 @@ Thank you for an amazing year!`,
   });
 
   useLayoutEffect(() => {
+    // Background Timeline
     tl.current = gsap.timeline();
-
     tl.current.to(backgroundColors.current, {
       duration: 1,
       colorA: "#357ca1",
@@ -501,9 +515,49 @@ Thank you for an amazing year!`,
       colorA: "#5061D5",
       colorB: "#F4BE97",
     });
-
     tl.current.pause();
+
+    // Plane entering timeline
+    planeInTl.current = gsap.timeline();
+    planeInTl.current.pause();
+    planeInTl.current.from(airplane.current.position, {
+      duration: 3,
+      z: 5,
+      y: -2,
+    });
+
+    // Plane leaving timeline
+    planeOutTl.current = gsap.timeline();
+    planeOutTl.current.pause();
+
+    planeOutTl.current.to(
+      airplane.current.position,
+      {
+        duration: 10,
+        z: -250,
+        y: 10,
+      },
+      0
+    );
+    planeOutTl.current.to(
+      cameraRail.current.position,
+      {
+        duration: 8,
+        y: 12,
+      },
+      0
+    );
+    planeOutTl.current.to(airplane.current.position, {
+      duration: 1,
+      z: -1000,
+    });
   }, []);
+
+  useEffect(() => {
+    if (state.play) {
+      planeInTl.current.play();
+    }
+  }, [state.play]);
 
   return (
     <>
