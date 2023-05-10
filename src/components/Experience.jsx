@@ -1,8 +1,9 @@
 import { Float, PerspectiveCamera, useScroll } from "@react-three/drei";
+import { gsap } from "gsap";
 import { Airplane } from "./Airplane";
 import { Cloud } from "./Cloud";
 import { Background } from "./Background";
-import { useMemo, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { TextSection } from "./TextSection";
@@ -369,6 +370,7 @@ Thank you for an amazing year!`,
 
   const scroll = useScroll();
   const lastScroll = useRef(0);
+  const tl = useRef();
 
   useFrame((_state, delta) => {
     // Adjust camera settings based on device
@@ -420,6 +422,7 @@ Thank you for an amazing year!`,
     lerpedScrollOffset = Math.max(lerpedScrollOffset, 0);
 
     lastScroll.current = lerpedScrollOffset;
+    tl.current.seek(lerpedScrollOffset * tl.current.duration());
 
     // Follow the curve points
     const curPoint = curve.getPoint(lerpedScrollOffset);
@@ -480,11 +483,33 @@ Thank you for an amazing year!`,
     airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
   });
 
+  const backgroundColors = useRef({
+    colorA: "#357ca1",
+    colorB: "white",
+  });
+
+  useLayoutEffect(() => {
+    tl.current = gsap.timeline();
+
+    tl.current.to(backgroundColors.current, {
+      duration: 1,
+      colorA: "#357ca1",
+      colorB: "#FCF1C8",
+    });
+    tl.current.to(backgroundColors.current, {
+      duration: 1,
+      colorA: "#5061D5",
+      colorB: "#F4BE97",
+    });
+
+    tl.current.pause();
+  }, []);
+
   return (
     <>
       <directionalLight position={[0, 3, 1]} intensity={0.1} />
       <group ref={cameraGroup}>
-        <Background />
+        <Background backgroundColors={backgroundColors} />
         <Speed />
         <group ref={cameraRail}>
           <PerspectiveCamera
