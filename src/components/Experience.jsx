@@ -6,6 +6,7 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { TextSection } from "./TextSection";
+import { Speed } from "./Speed";
 
 const NUM_POINTS_LINE = 1000;
 const CURVE_DISTANCE = 250;
@@ -363,12 +364,25 @@ Thank you for an amazing year!`,
 
   const cameraGroup = useRef();
   const cameraRail = useRef();
+  // const camera = useRef();
   const airplane = useRef();
 
   const scroll = useScroll();
   const lastScroll = useRef(0);
 
   useFrame((_state, delta) => {
+    // Adjust camera settings based on device
+    // if (window.innerWidth > window.innerHeight) {
+    //   // Landscape
+    //   camera.current.fov = 30;
+    //   camera.current.position.z = 5;
+    // } else {
+    //   // Portrait
+    //   camera.current.fov = 80;
+    //   camera.current.position.z = 2;
+    // }
+    // console.log(camera.current);
+
     const scrollOffset = Math.max(0, scroll.offset);
 
     // Look to close text sections
@@ -471,8 +485,14 @@ Thank you for an amazing year!`,
       <directionalLight position={[0, 3, 1]} intensity={0.1} />
       <group ref={cameraGroup}>
         <Background />
+        <Speed />
         <group ref={cameraRail}>
-          <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+          <PerspectiveCamera
+            // ref={camera}
+            position={[0, 0, 5]}
+            fov={30}
+            makeDefault
+          />
         </group>
         <group ref={airplane}>
           <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
