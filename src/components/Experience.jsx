@@ -9,6 +9,7 @@ import { useFrame } from "@react-three/fiber";
 import { TextSection } from "./TextSection";
 import { Speed } from "./Speed";
 import { usePlay } from "../contexts/Play";
+import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
 
 const NUM_POINTS_LINE = 1000;
 const CURVE_DISTANCE = 250;
@@ -64,8 +65,7 @@ export const Experience = () => {
           curvePoints[2].z
         ),
         title: "Time",
-        subtitle: `Time flew by.
-Thank you for an amazing year!`,
+        subtitle: `Time flew by. Thank you for an amazing year!`,
       },
       {
         cameraRailDist: -1,
@@ -95,7 +95,7 @@ Thank you for an amazing year!`,
           curvePoints[5].z
         ),
         title: "Cold",
-        subtitle: `"It's cold up here!" is what you'd say.`,
+        subtitle: `"It's cold up here!" is what you'd say. Good thing we keep each other warm.`,
       },
       {
         cameraRailDist: 1.5,
@@ -355,6 +355,9 @@ Thank you for an amazing year!`,
     []
   );
 
+  const sceneOpacity = useRef(0);
+  const lineMaterialRef = useRef();
+
   const cameraGroup = useRef();
   const cameraRail = useRef();
   // const camera = useRef();
@@ -385,6 +388,26 @@ Thank you for an amazing year!`,
     if (lastScroll.current <= 0 && scroll.offset > 0) {
       state.setHasScroll();
     }
+
+    // Fade in scene
+    if (state.play && !state.end && sceneOpacity.current < 1) {
+      sceneOpacity.current = THREE.MathUtils.lerp(
+        sceneOpacity.current,
+        1,
+        delta * 0.1
+      );
+    }
+
+    // Fade out scene
+    if (state.end && sceneOpacity.current > 0) {
+      sceneOpacity.current = THREE.MathUtils.lerp(
+        sceneOpacity.current,
+        0,
+        delta
+      );
+    }
+
+    lineMaterialRef.current.opacity = sceneOpacity.current;
 
     if (state.end) {
       return;
@@ -605,16 +628,17 @@ Thank you for an amazing year!`,
             />
             <meshStandardMaterial
               color="white"
-              opacity={1}
+              ref={lineMaterialRef}
               transparent
               envMapIntensity={2}
+              onBeforeCompile={fadeOnBeforeCompile}
             />
           </mesh>
         </group>
 
         {/* CLOUDS */}
         {clouds.map((cloud, index) => (
-          <Cloud {...cloud} key={index} />
+          <Cloud sceneOpacity={sceneOpacity} {...cloud} key={index} />
         ))}
       </>
     ),
