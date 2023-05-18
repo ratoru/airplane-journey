@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
 
 export function Clouds({ sceneOpacity, data }) {
-  const { nodes, material } = useGLTF("/models/cloud/model.gltf");
+  const { nodes } = useGLTF("/models/cloud/model.glb");
   const ref = useRef();
 
   useFrame(() => {
@@ -34,4 +34,4 @@ function Cloud({ sceneOpacity, ...props }) {
   );
 }
 
-useGLTF.preload("/models/cloud/model.gltf");
+useGLTF.preload("/models/cloud/model.glb");

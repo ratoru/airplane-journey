@@ -27,7 +27,7 @@ export const Experience = () => {
       new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
       new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
       new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
-      new THREE.Vector3(0, 0, -6 * CURVE_DISTANCE),
+      new THREE.Vector3(20, 0, -6 * CURVE_DISTANCE),
       new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
     ],
     []
@@ -198,6 +198,15 @@ export const Experience = () => {
         ),
         rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 3),
       },
+      {
+        scale: new THREE.Vector3(4, 4, 4),
+        position: new THREE.Vector3(
+          curvePoints[2].x - 12,
+          curvePoints[2].y + 5,
+          curvePoints[2].z
+        ),
+        rotation: new THREE.Euler(Math.PI / 10, 0, Math.PI / 4),
+      },
       // THIRD POINT
       {
         scale: new THREE.Vector3(3, 3, 3),
@@ -310,7 +319,7 @@ export const Experience = () => {
         rotation: new THREE.Euler(0, Math.PI / 7, Math.PI / 5),
         scale: new THREE.Vector3(5, 5, 5),
         position: new THREE.Vector3(
-          curvePoints[6].x - 13,
+          curvePoints[6].x - 15,
           curvePoints[6].y + 4,
           curvePoints[6].z - 62
         ),
