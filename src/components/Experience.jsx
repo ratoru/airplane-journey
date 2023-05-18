@@ -1,7 +1,7 @@
 import { Float, PerspectiveCamera, useScroll } from "@react-three/drei";
 import { gsap } from "gsap";
 import { Airplane } from "./Airplane";
-import { Cloud } from "./Cloud";
+import { Clouds } from "./Cloud";
 import { Background } from "./Background";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -16,7 +16,7 @@ const CURVE_DISTANCE = 250;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
-const FRICTION_DISTANCE = 42;
+const FRICTION_DISTANCE = 80;
 
 export const Experience = () => {
   const curvePoints = useMemo(
@@ -108,7 +108,7 @@ export const Experience = () => {
         subtitle: `Thank you for being an endless provider of sound effects.`,
       },
     ];
-  });
+  }, []);
 
   const clouds = useMemo(
     () => [
@@ -642,9 +642,7 @@ export const Experience = () => {
         </group>
 
         {/* CLOUDS */}
-        {clouds.map((cloud, index) => (
-          <Cloud sceneOpacity={sceneOpacity} {...cloud} key={index} />
-        ))}
+        <Clouds sceneOpacity={sceneOpacity} data={clouds} />
       </>
     ),
     []
