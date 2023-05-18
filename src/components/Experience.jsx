@@ -467,7 +467,7 @@ export const Experience = () => {
       },
       // SEVENTH POINT
       {
-        scale: randomScalarVector(),
+        scale: randomScalarVector(3),
         position: new THREE.Vector3(
           curvePoints[7].x + 3,
           curvePoints[7].y - 10,
