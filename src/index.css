@@ -1,6 +1,6 @@
 @font-face {
   font-family: "MADE Mountain";
-  src: url("/fonts/MADEMountain-Regular.otf") format("opentype");
+  src: url("/fonts/MADEMountain-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -167,7 +167,11 @@ body {
 }
 
 .outro__text {
-  font-size: 1.5rem;
+  font-family: "MADE Mountain", serif;
+  font-size: 2rem;
+  line-height: 3rem;
+  letter-spacing: 0.025em;
+  text-align: center;
   color: white;
 }
 

@@ -24,7 +24,7 @@ export const Overlay = () => {
       )}
       <div className={`outro ${state.end ? "outro--appear" : ""}`}>
         <p className="outro__text">
-          Let the journey continue at 21:00. <br /> See you where we had our
+          Let the journey continue at 18:30. <br /> See you where we had our
           first date.
         </p>
       </div>

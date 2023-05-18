@@ -11,7 +11,7 @@ export const TextSection = ({ title, subtitle, ...props }) => (
         fontSize={0.5}
         maxWidth={2.5}
         lineHeight={1}
-        font="/fonts/MADEMountain-Regular.otf"
+        font="/fonts/MADEMountain-Regular.woff"
       >
         {title}
         <meshStandardMaterial onBeforeCompile={fadeOnBeforeCompileFlat} />
