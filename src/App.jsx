@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
 import { ScrollControls } from "@react-three/drei";
-import { EffectComposer, Noise } from "@react-three/postprocessing";
+// import { EffectComposer, Noise } from "@react-three/postprocessing";
 import { Overlay } from "./components/Overlay";
 import { usePlay } from "./contexts/Play";
 // import { Perf } from "r3f-perf";
@@ -30,9 +30,9 @@ function App() {
         >
           <Experience />
         </ScrollControls>
-        <EffectComposer>
-          <Noise opacity={0.3} />
-        </EffectComposer>
+        {/* <EffectComposer>
+          <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} />
+        </EffectComposer> */}
       </Canvas>
       <Overlay />
     </>

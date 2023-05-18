@@ -12,23 +12,44 @@ import { usePlay } from "../contexts/Play";
 import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
 
 const NUM_POINTS_LINE = 1000;
-const CURVE_DISTANCE = 250;
+const CURVE_DISTANCE = 180;
 const CURVE_AHEAD_CAMERA = 0.008;
 const CURVE_AHEAD_AIRPLANE = 0.02;
 const AIRPLANE_MAX_ANGLE = 35;
 const FRICTION_DISTANCE = 80;
+
+// const randomVector = (p, r) =>
+//   new THREE.Vector3(
+//     p.x + (r / 2 - Math.random() * r),
+//     p.y + (r / 4 - Math.random() * r),
+//     p.z + (r / 2 - Math.random() * r)
+//   );
+const randomEuler = () =>
+  new THREE.Euler(
+    Math.random() * Math.PI,
+    Math.random() * Math.PI,
+    Math.random() * Math.PI
+  );
+const randomScalarVector = (s) => {
+  const scale = Math.max(s - Math.random() * 2, 1);
+  return new THREE.Vector3(scale, scale, scale);
+};
 
 export const Experience = () => {
   const curvePoints = useMemo(
     () => [
       new THREE.Vector3(0, 0, 0),
       new THREE.Vector3(0, 0, -CURVE_DISTANCE),
-      new THREE.Vector3(100, 0, -2 * CURVE_DISTANCE),
-      new THREE.Vector3(-100, 0, -3 * CURVE_DISTANCE),
-      new THREE.Vector3(100, 0, -4 * CURVE_DISTANCE),
+      new THREE.Vector3(80, 0, -2 * CURVE_DISTANCE),
+      new THREE.Vector3(-80, 0, -3 * CURVE_DISTANCE),
+      new THREE.Vector3(80, 0, -4 * CURVE_DISTANCE),
       new THREE.Vector3(0, 0, -5 * CURVE_DISTANCE),
       new THREE.Vector3(20, 0, -6 * CURVE_DISTANCE),
-      new THREE.Vector3(0, 0, -7 * CURVE_DISTANCE),
+      new THREE.Vector3(-50, 0, -7 * CURVE_DISTANCE),
+      new THREE.Vector3(50, 0, -8 * CURVE_DISTANCE),
+      new THREE.Vector3(-20, 0, -9 * CURVE_DISTANCE),
+      new THREE.Vector3(0, 0, -10 * CURVE_DISTANCE),
+      new THREE.Vector3(0, 0, -11 * CURVE_DISTANCE),
     ],
     []
   );
@@ -94,8 +115,8 @@ export const Experience = () => {
           curvePoints[5].y,
           curvePoints[5].z
         ),
-        title: "Cold",
-        subtitle: `"It's cold up here!" is what you'd say. Good thing we keep each other warm.`,
+        title: "Gator",
+        subtitle: `Ups. How did people figure that one out?`,
       },
       {
         cameraRailDist: 1.5,
@@ -106,6 +127,46 @@ export const Experience = () => {
         ),
         title: "Soundtrack",
         subtitle: `Thank you for being an endless provider of sound effects.`,
+      },
+      {
+        cameraRailDist: 1.5,
+        position: new THREE.Vector3(
+          curvePoints[7].x - 3,
+          curvePoints[7].y,
+          curvePoints[7].z
+        ),
+        title: "Adventure",
+        subtitle: `NYC, Paris, you name it. It's been amazing.`,
+      },
+      {
+        cameraRailDist: 1.5,
+        position: new THREE.Vector3(
+          curvePoints[8].x + 3,
+          curvePoints[8].y,
+          curvePoints[8].z
+        ),
+        title: "Chom Chom vs Skye",
+        subtitle: `Hmmmm... They're both great dogs.`,
+      },
+      {
+        cameraRailDist: 1.5,
+        position: new THREE.Vector3(
+          curvePoints[9].x - 3,
+          curvePoints[9].y,
+          curvePoints[9].z
+        ),
+        title: "Bear",
+        subtitle: `Teddy bear or bear hugs. Luckily, you do both.`,
+      },
+      {
+        cameraRailDist: 1.5,
+        position: new THREE.Vector3(
+          curvePoints[10].x + 3,
+          curvePoints[10].y,
+          curvePoints[10].z
+        ),
+        title: "Cold",
+        subtitle: `"It's cold up here!" is what you'd say. Good thing we keep each other warm.`,
       },
     ];
   }, []);
@@ -147,22 +208,22 @@ export const Experience = () => {
         rotation: new THREE.Euler(0, Math.PI / 7, 0),
       },
       {
-        rotation: new THREE.Euler(0, Math.PI / 7, Math.PI / 5),
         scale: new THREE.Vector3(5, 5, 5),
         position: new THREE.Vector3(
-          curvePoints[1].x - 13,
+          curvePoints[1].x - 10,
           curvePoints[1].y + 4,
           curvePoints[1].z - 62
         ),
+        rotation: new THREE.Euler(0, Math.PI / 7, Math.PI / 5),
       },
       {
-        rotation: new THREE.Euler(Math.PI / 2, Math.PI / 2, Math.PI / 3),
         scale: new THREE.Vector3(5, 5, 5),
         position: new THREE.Vector3(
-          curvePoints[1].x + 54,
+          curvePoints[1].x + 60,
           curvePoints[1].y + 2,
           curvePoints[1].z - 82
         ),
+        rotation: new THREE.Euler(Math.PI / 2, Math.PI / 2, Math.PI / 3),
       },
       {
         scale: new THREE.Vector3(5, 5, 5),
@@ -243,6 +304,24 @@ export const Experience = () => {
         ),
         rotation: new THREE.Euler(0, Math.PI / 3, 0),
       },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[3].x + 120,
+          curvePoints[3].y - 5,
+          curvePoints[3].z - 98
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 3, 0),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[3].x + 20,
+          curvePoints[3].y + 2,
+          curvePoints[3].z + 20
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 3, 0),
+      },
       // FOURTH POINT
       {
         scale: new THREE.Vector3(2, 2, 2),
@@ -269,6 +348,33 @@ export const Experience = () => {
           curvePoints[4].z - 62
         ),
         rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[4].x - 38,
+          curvePoints[4].y + 5,
+          curvePoints[4].z - 80
+        ),
+        rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[4].x - 4,
+          curvePoints[4].y + 9,
+          curvePoints[4].z + 30
+        ),
+        rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[4].x - 14,
+          curvePoints[4].y - 4,
+          curvePoints[4].z
+        ),
+        rotation: new THREE.Euler(Math.PI / 8, 0, 0),
       },
       // FIFTH POINT
       {
@@ -297,6 +403,24 @@ export const Experience = () => {
         ),
         rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 2),
       },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[5].x - 8,
+          curvePoints[5].y + 5,
+          curvePoints[5].z + 10
+        ),
+        rotation: new THREE.Euler(-Math.PI / 4, 0, Math.PI / 2),
+      },
+      {
+        scale: new THREE.Vector3(2, 2, 2),
+        position: new THREE.Vector3(
+          curvePoints[5].x + 5,
+          curvePoints[5].y - 3,
+          curvePoints[5].z - 8
+        ),
+        rotation: new THREE.Euler(Math.PI / 8, Math.PI / 3, 0),
+      },
       // SIXTH POINT
       {
         scale: new THREE.Vector3(4, 4, 4),
@@ -319,7 +443,7 @@ export const Experience = () => {
         rotation: new THREE.Euler(0, Math.PI / 7, Math.PI / 5),
         scale: new THREE.Vector3(5, 5, 5),
         position: new THREE.Vector3(
-          curvePoints[6].x - 15,
+          curvePoints[6].x - 40,
           curvePoints[6].y + 4,
           curvePoints[6].z - 62
         ),
@@ -328,7 +452,7 @@ export const Experience = () => {
         rotation: new THREE.Euler(Math.PI / 2, Math.PI / 2, Math.PI / 3),
         scale: new THREE.Vector3(5, 5, 5),
         position: new THREE.Vector3(
-          curvePoints[6].x + 54,
+          curvePoints[6].x + 34,
           curvePoints[6].y + 2,
           curvePoints[6].z - 82
         ),
@@ -341,28 +465,228 @@ export const Experience = () => {
           curvePoints[6].z - 22
         ),
       },
+      // SEVENTH POINT
+      {
+        scale: randomScalarVector(),
+        position: new THREE.Vector3(
+          curvePoints[7].x + 3,
+          curvePoints[7].y - 10,
+          curvePoints[7].z + 50
+        ),
+        rotation: randomEuler(),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[7].x - 10,
+          curvePoints[7].y,
+          curvePoints[7].z + 30
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 5),
+      },
+      {
+        scale: new THREE.Vector3(4, 4, 4),
+        position: new THREE.Vector3(
+          curvePoints[7].x - 20,
+          curvePoints[7].y - 5,
+          curvePoints[7].z - 8
+        ),
+        rotation: new THREE.Euler(Math.PI, 0, Math.PI / 5),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[7].x + 0,
+          curvePoints[7].y - 5,
+          curvePoints[7].z - 98
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 3, 0),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[7].x + 120,
+          curvePoints[7].y - 5,
+          curvePoints[7].z - 98
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 3, 0),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[7].x + 20,
+          curvePoints[7].y + 2,
+          curvePoints[7].z + 20
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 3, 0),
+      },
+      // EIGTH POINT
+      {
+        scale: new THREE.Vector3(2, 2, 2),
+        position: new THREE.Vector3(
+          curvePoints[8].x + 3,
+          curvePoints[8].y - 10,
+          curvePoints[8].z + 2
+        ),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[8].x + 24,
+          curvePoints[8].y - 6,
+          curvePoints[8].z - 42
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 5),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[8].x - 4,
+          curvePoints[8].y + 9,
+          curvePoints[8].z - 62
+        ),
+        rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[8].x - 38,
+          curvePoints[8].y + 5,
+          curvePoints[8].z - 80
+        ),
+        rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[8].x - 4,
+          curvePoints[8].y + 9,
+          curvePoints[8].z + 30
+        ),
+        rotation: new THREE.Euler(Math.PI / 3, 0, Math.PI / 3),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[8].x - 14,
+          curvePoints[8].y - 4,
+          curvePoints[8].z
+        ),
+        rotation: new THREE.Euler(Math.PI / 8, 0, 0),
+      },
+      // NINETH POINT
+      {
+        scale: new THREE.Vector3(2, 2, 2),
+        position: new THREE.Vector3(
+          curvePoints[9].x + 3,
+          curvePoints[9].y - 10,
+          curvePoints[9].z + 2
+        ),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[9].x - 24,
+          curvePoints[9].y - 3,
+          curvePoints[9].z - 42
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 5),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[9].x - 4,
+          curvePoints[9].y + 9,
+          curvePoints[9].z - 62
+        ),
+        rotation: new THREE.Euler(Math.PI / 4, 0, Math.PI / 2),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[9].x - 8,
+          curvePoints[9].y + 5,
+          curvePoints[9].z + 10
+        ),
+        rotation: new THREE.Euler(-Math.PI / 4, 0, Math.PI / 2),
+      },
+      {
+        scale: new THREE.Vector3(2, 2, 2),
+        position: new THREE.Vector3(
+          curvePoints[9].x + 5,
+          curvePoints[9].y - 3,
+          curvePoints[9].z - 8
+        ),
+        rotation: new THREE.Euler(Math.PI / 8, Math.PI / 3, 0),
+      },
+      // TENTH POINT
+      {
+        scale: new THREE.Vector3(4, 4, 4),
+        position: new THREE.Vector3(
+          curvePoints[10].x + 10,
+          curvePoints[10].y - 4,
+          curvePoints[10].z + 64
+        ),
+      },
+      {
+        scale: new THREE.Vector3(3, 3, 3),
+        position: new THREE.Vector3(
+          curvePoints[10].x - 20,
+          curvePoints[10].y + 4,
+          curvePoints[10].z + 28
+        ),
+        rotation: new THREE.Euler(0, Math.PI / 7, 0),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[10].x - 40,
+          curvePoints[10].y + 4,
+          curvePoints[10].z - 62
+        ),
+        rotation: randomEuler(),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[10].x + 34,
+          curvePoints[10].y + 2,
+          curvePoints[10].z - 82
+        ),
+        rotation: randomEuler(),
+      },
+      {
+        scale: new THREE.Vector3(5, 5, 5),
+        position: new THREE.Vector3(
+          curvePoints[10].x + 8,
+          curvePoints[10].y - 14,
+          curvePoints[10].z - 22
+        ),
+      },
       // FINAL
       {
         scale: new THREE.Vector3(3, 3, 3),
         position: new THREE.Vector3(
-          curvePoints[7].x + 12,
-          curvePoints[7].y - 5,
-          curvePoints[7].z + 60
+          curvePoints[11].x + 12,
+          curvePoints[11].y - 5,
+          curvePoints[11].z + 60
         ),
         rotation: new THREE.Euler(-Math.PI / 4, -Math.PI / 6, 0),
       },
       {
         scale: new THREE.Vector3(3, 3, 3),
         position: new THREE.Vector3(
-          curvePoints[7].x - 12,
-          curvePoints[7].y + 5,
-          curvePoints[7].z + 120
+          curvePoints[11].x - 12,
+          curvePoints[11].y + 5,
+          curvePoints[11].z + 120
         ),
         rotation: new THREE.Euler(Math.PI / 4, Math.PI / 6, 0),
       },
     ],
     []
   );
+
+  console.log(clouds);
 
   const sceneOpacity = useRef(0);
   const lineMaterialRef = useRef();
